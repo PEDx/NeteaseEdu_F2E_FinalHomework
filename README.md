@@ -1,5 +1,4 @@
-<h2>NeteaseEdu_F2E_FinalHomework</h2>
-<h2>网易前端微专业毕业大作业</h2>
+<h2>网易前端微专业毕业大作业_NeteaseEdu_F2E_FinalHomework</h2>
 <a href=""><h3>作业展示页面<h3></a>
 <h3>要求达成</h3>
 <ol>
