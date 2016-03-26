@@ -16,6 +16,7 @@
 </ol>
 <h3>PS</h3>
 <ol>
+<li>登录账号：studyOnline  密码：study.163.com</li>
 <li>网页logo用了切图来保证在各系统和浏览器下字体都呈现一致。</li>
 <li>在动态创建节点上，本作业用了creatELement()方法而不是innerHTML来创建，由于时间关系未来得及修改。但总的来说innerHTML的效率比creatELement()要高，尤其在ie浏览器和FF浏览器下要创建大量节点时。</li>
 <li>响应式课程卡片列表行数未和视觉稿一致。</li>
