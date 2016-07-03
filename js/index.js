@@ -167,8 +167,8 @@ var STEP=5000;
 (function(){
     //关闭顶部小条
     var ele=document.getElementById('header');
-     if(!getCookie("hasClosed")){
-        delThenAdd(ele,"open","closed");
+     if(getCookie("hasClosed"===1)){
+        addClass(ele,"closed");
     }
     document.getElementById("close").onclick=function(){
         addClass(ele,"closed");
