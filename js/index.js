@@ -170,7 +170,7 @@ var STEP=5000;
      if(getCookie("hasClosed"===1)){
         addClass(ele,"closed");
     }
-    document.getElementById("header").onclick=function(){
+    document.getElementById("close").onclick=function(){
         addClass(ele,"closed");
         setCookie("hasClosed",1,365);
     };
