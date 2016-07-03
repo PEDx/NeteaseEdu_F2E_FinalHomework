@@ -520,7 +520,7 @@ var STEP=5000;
     if(winWidth<=1205) document.getElementById("m-courses").style.height=1350+"px";
 
     //初始化课程列表
-    applyCous(1,coursePage,20);
+    applyCous(1,coursePage,10);
 
     //为两个tab添加事件
     document.getElementById("lan").onclick=function(){
