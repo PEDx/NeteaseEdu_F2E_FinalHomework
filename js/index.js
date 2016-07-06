@@ -183,6 +183,7 @@ var STEP=5000;
         document.forms.log.reset();
         delThenAdd(document.getElementById('error'),"open","closed");
     };
+<<<<<<< HEAD
     //关闭视频
     document.getElementById('x2').onclick=function(){
         delThenAdd(document.getElementById('m-ms2'),"open","closed");
@@ -203,6 +204,9 @@ var STEP=5000;
         player.pause();
         delThenAdd(document.getElementById('playbtm'),"closed","open");
     };
+=======
+
+>>>>>>> refs/remotes/origin/gh-pages
     //关注cookie
     if(getCookie("followSuc")){
         addClass(s5,"closed");
@@ -244,6 +248,29 @@ var STEP=5000;
             delThenAdd(ipt2,"closed","open");
         }
     };
+<<<<<<< HEAD
+=======
+    //关闭视频
+    document.getElementById('x2').onclick=function(){
+        delThenAdd(document.getElementById('m-ms2'),"open","closed");
+        player.currentTime = 0;
+        player.pause();
+    };
+    //点击打开视频和遮罩
+    document.getElementById('mov').onclick=function(){
+        delThenAdd(document.getElementById('m-ms2'),"closed","open");
+    };
+    //播放按钮
+    document.getElementById('playbtm').onclick=function(){
+        delThenAdd(document.getElementById('playbtm'),"open","closed");
+        player.play();
+    };
+    //点击播放画面暂停播放
+    document.getElementById('player').onclick=function(){
+        player.pause();
+        delThenAdd(document.getElementById('playbtm'),"closed","open");
+    };
+>>>>>>> refs/remotes/origin/gh-pages
 
     //登录事件和通讯
     document.getElementById('dologin').onmousedown=function(){
@@ -288,6 +315,24 @@ var STEP=5000;
 
 //课程卡片及翻页器的生成
 (function(){
+<<<<<<< HEAD
+=======
+    //为课程卡片添加事件函数
+    var addCourseEvent=function(node1,node2){
+        var helper1=function(e){
+            return function(){
+                delThenAdd(e,"closed","open");
+            };
+        };
+        var helper2=function(e){
+            return function(){
+                delThenAdd(e,"open","closed");
+            };
+        };
+        node2.onmouseover=helper1(node1);
+        node2.onmouseout=helper2(node1);
+    };
+>>>>>>> refs/remotes/origin/gh-pages
     //生成课程卡片列表函数
     function creatHtmItm(cnt,couList){
         for(var i=0;i<cnt;i++){
@@ -363,6 +408,7 @@ var STEP=5000;
                         div15.className="bottom";
                             var p1=apply(div15,"p",couList[i].description);
             itmList.appendChild(xdiv);
+<<<<<<< HEAD
             //为课程卡片绑定事件处理函数
             (function(e,a){
                 (function() {
@@ -375,6 +421,12 @@ var STEP=5000;
                 })();
             })(div7,xdiv);
         }
+=======
+            // //为课程卡片绑定事件处理函数
+            addCourseEvent(div7,xdiv);
+        }
+
+>>>>>>> refs/remotes/origin/gh-pages
     }
     //生成翻页器函数函数
     var pagelist=document.getElementById("pageList");
@@ -382,7 +434,23 @@ var STEP=5000;
         var pre=apply(pagelist,"a");
         pre.className="pre";
         var asp=apply(pre,"span");
+<<<<<<< HEAD
         var a;
+=======
+        var a,i;
+        // 为页码器添加事件处理函数
+        var addPageCnt=function (node){
+            var helper=function(m){
+                return function(){
+                    clearHtmItm(itmlist);
+                    clearHtmItm(pagelist);
+                    m===pageAll?applyCous(m,mod,coursetype):applyCous(m,pagecount,coursetype);
+                };
+            };
+            node.onclick=helper(node.value);
+        };
+
+>>>>>>> refs/remotes/origin/gh-pages
         pre.onclick=function(){
             var prePageNum=index-1;
             if(prePageNum>=1){
@@ -393,11 +461,16 @@ var STEP=5000;
         };
         //当页数小于7页
         if(index<7){
+<<<<<<< HEAD
             for(var i=1;i<=8;i++){
+=======
+            for(i=1;i<=8;i++){
+>>>>>>> refs/remotes/origin/gh-pages
                 a=apply(pagelist,"a",i);
                 a.name="nav";
                 a.value=i;
                 if(a.value!==index){
+<<<<<<< HEAD
                     (function(n,m){
                         (function() {
                             n.onclick=function(){
@@ -411,6 +484,9 @@ var STEP=5000;
                             };
                         })();
                     })(a,a.value);
+=======
+                    addPageCnt(a);
+>>>>>>> refs/remotes/origin/gh-pages
                 }
             }
             var navList=document.getElementsByName("nav");
@@ -429,6 +505,7 @@ var STEP=5000;
             };
             asp=apply(pagelist,"span","...");
             asp.className="zdot";
+<<<<<<< HEAD
             for(var i=index-3;(i<=index+3)&&(i<=pageAllCnt);i++){
                 if(i===index){
                     var idx=apply(pagelist,"a",i);
@@ -450,6 +527,20 @@ var STEP=5000;
                             };
                         })();
                     })(idx,idx.value);
+=======
+
+
+            var idx;
+            for(i=index-3;(i<=index+3)&&(i<=pageAllCnt);i++){
+                if(i===index){
+                    idx=apply(pagelist,"a",i);
+                    idx.value=i;
+                    idx.className="navSec";
+                }else {
+                    idx=apply(pagelist,"a",i);
+                    idx.value=i;
+                    addPageCnt(idx);
+>>>>>>> refs/remotes/origin/gh-pages
                 }
             }
         }
@@ -520,7 +611,11 @@ var STEP=5000;
     if(winWidth<=1205) document.getElementById("m-courses").style.height=1350+"px";
 
     //初始化课程列表
+<<<<<<< HEAD
     applyCous(1,coursePage,20);
+=======
+    applyCous(1,coursePage,10);
+>>>>>>> refs/remotes/origin/gh-pages
 
     //为两个tab添加事件
     document.getElementById("lan").onclick=function(){
@@ -545,12 +640,19 @@ var STEP=5000;
     //生成热门课程列表函数
     var topList=document.getElementById("list");
     function creatTopItm(index,hotList){
+<<<<<<< HEAD
         for(var i=index;i<index+10;i++){
             var a=i;
             if(i>=20){
                a=i%20;
             }
             var a1=apply(topList,"a");
+=======
+        var a,a1;
+        for(var i=index;i<index+10;i++){
+            a=i>=20?i%20:i;
+            a1=apply(topList,"a");
+>>>>>>> refs/remotes/origin/gh-pages
                 var div1=apply(a1,"div");
                 div1.className="itm";
                     var div2=apply(div1,"div");
@@ -593,4 +695,8 @@ var STEP=5000;
         };
         xhr2.send();
     }
+<<<<<<< HEAD
 })()
+=======
+})();
+>>>>>>> refs/remotes/origin/gh-pages
