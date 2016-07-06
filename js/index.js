@@ -183,26 +183,7 @@ var STEP=5000;
         document.forms.log.reset();
         delThenAdd(document.getElementById('error'),"open","closed");
     };
-    //关闭视频
-    document.getElementById('x2').onclick=function(){
-        delThenAdd(document.getElementById('m-ms2'),"open","closed");
-        player.currentTime = 0;
-        player.pause();
-    };
-    //点击打开视频和遮罩
-    document.getElementById('mov').onclick=function(){
-        delThenAdd(document.getElementById('m-ms2'),"closed","open");
-    };
-    //播放按钮
-    document.getElementById('playbtm').onclick=function(){
-        delThenAdd(document.getElementById('playbtm'),"open","closed");
-        player.play();
-    };
-    //点击播放画面暂停播放
-    document.getElementById('player').onclick=function(){
-        player.pause();
-        delThenAdd(document.getElementById('playbtm'),"closed","open");
-    };
+
     //关注cookie
     if(getCookie("followSuc")){
         addClass(s5,"closed");
@@ -243,6 +224,26 @@ var STEP=5000;
         if(document.getElementById('passw').value===""){
             delThenAdd(ipt2,"closed","open");
         }
+    };
+    //关闭视频
+    document.getElementById('x2').onclick=function(){
+        delThenAdd(document.getElementById('m-ms2'),"open","closed");
+        player.currentTime = 0;
+        player.pause();
+    };
+    //点击打开视频和遮罩
+    document.getElementById('mov').onclick=function(){
+        delThenAdd(document.getElementById('m-ms2'),"closed","open");
+    };
+    //播放按钮
+    document.getElementById('playbtm').onclick=function(){
+        delThenAdd(document.getElementById('playbtm'),"open","closed");
+        player.play();
+    };
+    //点击播放画面暂停播放
+    document.getElementById('player').onclick=function(){
+        player.pause();
+        delThenAdd(document.getElementById('playbtm'),"closed","open");
     };
 
     //登录事件和通讯
@@ -288,6 +289,21 @@ var STEP=5000;
 
 //课程卡片及翻页器的生成
 (function(){
+    //为课程卡片添加事件函数
+    var addCourseEvent=function(node1,node2){
+        var helper1=function(e){
+            return function(){
+                delThenAdd(e,"closed","open");
+            };
+        };
+        var helper2=function(e){
+            return function(){
+                delThenAdd(e,"open","closed");
+            };
+        };
+        node2.onmouseover=helper1(node1);
+        node2.onmouseout=helper2(node1);
+    };
     //生成课程卡片列表函数
     function creatHtmItm(cnt,couList){
         for(var i=0;i<cnt;i++){
@@ -363,18 +379,10 @@ var STEP=5000;
                         div15.className="bottom";
                             var p1=apply(div15,"p",couList[i].description);
             itmList.appendChild(xdiv);
-            //为课程卡片绑定事件处理函数
-            (function(e,a){
-                (function() {
-                    a.onmouseover=function(){
-                        delThenAdd(e,"closed","open");
-                    };
-                    a.onmouseout=function(){
-                        delThenAdd(e,"open","closed");
-                    };
-                })();
-            })(div7,xdiv);
+            // //为课程卡片绑定事件处理函数
+            addCourseEvent(div7,xdiv);
         }
+
     }
     //生成翻页器函数函数
     var pagelist=document.getElementById("pageList");
@@ -382,7 +390,19 @@ var STEP=5000;
         var pre=apply(pagelist,"a");
         pre.className="pre";
         var asp=apply(pre,"span");
-        var a;
+        var a,i;
+        // 为页码器添加事件处理函数
+        var addPageCnt=function (node){
+            var helper=function(m){
+                return function(){
+                    clearHtmItm(itmlist);
+                    clearHtmItm(pagelist);
+                    m===pageAll?applyCous(m,mod,coursetype):applyCous(m,pagecount,coursetype);
+                };
+            };
+            node.onclick=helper(node.value);
+        };
+
         pre.onclick=function(){
             var prePageNum=index-1;
             if(prePageNum>=1){
@@ -393,24 +413,12 @@ var STEP=5000;
         };
         //当页数小于7页
         if(index<7){
-            for(var i=1;i<=8;i++){
+            for(i=1;i<=8;i++){
                 a=apply(pagelist,"a",i);
                 a.name="nav";
                 a.value=i;
                 if(a.value!==index){
-                    (function(n,m){
-                        (function() {
-                            n.onclick=function(){
-                                clearHtmItm(itmlist);
-                                clearHtmItm(pagelist);
-                                if(m===pageAll){
-                                    applyCous(pageAll,mod,coursetype);
-                                }else {
-                                    applyCous(m,pagecount,coursetype);
-                                }
-                            };
-                        })();
-                    })(a,a.value);
+                    addPageCnt(a);
                 }
             }
             var navList=document.getElementsByName("nav");
@@ -429,27 +437,18 @@ var STEP=5000;
             };
             asp=apply(pagelist,"span","...");
             asp.className="zdot";
-            for(var i=index-3;(i<=index+3)&&(i<=pageAllCnt);i++){
+
+
+            var idx;
+            for(i=index-3;(i<=index+3)&&(i<=pageAllCnt);i++){
                 if(i===index){
-                    var idx=apply(pagelist,"a",i);
+                    idx=apply(pagelist,"a",i);
                     idx.value=i;
                     idx.className="navSec";
                 }else {
-                    var idx=apply(pagelist,"a",i);
+                    idx=apply(pagelist,"a",i);
                     idx.value=i;
-                    (function(n,m){
-                        (function() {
-                            n.onclick=function(){
-                                clearHtmItm(itmlist);
-                                clearHtmItm(pagelist);
-                                if(m===pageAll){
-                                    applyCous(m,mod,coursetype);
-                                }else {
-                                    applyCous(m,pagecount,coursetype);
-                                }
-                            };
-                        })();
-                    })(idx,idx.value);
+                    addPageCnt(idx);
                 }
             }
         }
@@ -545,12 +544,10 @@ var STEP=5000;
     //生成热门课程列表函数
     var topList=document.getElementById("list");
     function creatTopItm(index,hotList){
+        var a,a1;
         for(var i=index;i<index+10;i++){
-            var a=i;
-            if(i>=20){
-               a=i%20;
-            }
-            var a1=apply(topList,"a");
+            a=i>=20?i%20:i;
+            a1=apply(topList,"a");
                 var div1=apply(a1,"div");
                 div1.className="itm";
                     var div2=apply(div1,"div");
@@ -593,4 +590,4 @@ var STEP=5000;
         };
         xhr2.send();
     }
-})()
+})();
